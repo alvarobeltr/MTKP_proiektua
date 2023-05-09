@@ -1,0 +1,28 @@
+program harmonikoa
+
+use mcf_tipos
+use funtzioak
+use rk4
+
+integer             :: i
+real(kind=dp)       :: t, h
+real(kind=dp), dimension(4)    :: y
+integer, parameter  :: n=1000
+real(kind=dp), parameter :: ta=0.0_dp, tb=100.0_dp
+
+h=(tb-ta)/n
+t    =  0.0_dp
+y(1) = -6.556_dp edo -6.555_dp edo -6.554_dp
+y(3) = -6.556_dp edo -6.555_dp edo -6.554_dp
+
+open(unit=12,file="8irudia.dat",status="replace",action="write")
+
+do i=1,n
+        write(unit=12,fmt="(5f20.12)") t, y
+        call rk4_paso_dp(t,y,f2,h)
+end do
+
+close(unit=12)
+
+
+end program harmonikoa
